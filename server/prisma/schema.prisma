@@ -1,0 +1,143 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  CUSTOMER
+  SUPPLIER
+  EMPLOYEE
+  ADMIN
+}
+
+enum EmployeeType {
+  DRIVER
+  JCB_OPERATOR
+  LOADER
+  OTHER
+}
+
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  ASSIGNED
+  IN_PROGRESS
+  DELIVERED
+  CANCELLED
+}
+
+enum DeliveryStatus {
+  ASSIGNED
+  PICKED_UP
+  IN_TRANSIT
+  COMPLETED
+}
+
+model User {
+  id          String      @id @default(uuid()) @map("_id") @db.Uuid
+  phone       String      @unique
+  name        String?
+  role        UserRole
+  employee    Employee?
+  supplier    Supplier?
+  customer    Customer?
+  referrals   Referral[]  @relation("Referrer")
+  referredBy  Referral?   @relation("Referred", fields: [referredById], references: [id])
+  referredById String?    @db.Uuid
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+model Customer {
+  id       String   @id @default(uuid()) @map("_id") @db.Uuid
+  user     User     @relation(fields: [userId], references: [id])
+  userId   String   @unique @db.Uuid
+  orders   Order[]
+}
+
+model Supplier {
+  id        String     @id @default(uuid()) @map("_id") @db.Uuid
+  user      User       @relation(fields: [userId], references: [id])
+  userId    String     @unique @db.Uuid
+  products  Product[]
+}
+
+model Employee {
+  id          String        @id @default(uuid()) @map("_id") @db.Uuid
+  user        User          @relation(fields: [userId], references: [id])
+  userId      String        @unique @db.Uuid
+  type        EmployeeType
+  deliveries  Delivery[]
+}
+
+model Product {
+  id          String     @id @default(uuid()) @map("_id") @db.Uuid
+  name        String
+  description String?
+  price       Float
+  quantity    Int
+  category    String
+  supplier    Supplier   @relation(fields: [supplierId], references: [id])
+  supplierId  String     @db.Uuid
+  orderItems  OrderItem[]
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model Order {
+  id          String      @id @default(uuid()) @map("_id") @db.Uuid
+  customer    Customer    @relation(fields: [customerId], references: [id])
+  customerId  String      @db.Uuid
+  status      OrderStatus @default(PENDING)
+  items       OrderItem[]
+  delivery    Delivery?
+  payment     Payment?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+model OrderItem {
+  id        String   @id @default(uuid()) @map("_id") @db.Uuid
+  order     Order    @relation(fields: [orderId], references: [id])
+  orderId   String   @db.Uuid
+  product   Product  @relation(fields: [productId], references: [id])
+  productId String   @db.Uuid
+  quantity  Int
+  price     Float
+}
+
+model Delivery {
+  id          String        @id @default(uuid()) @map("_id") @db.Uuid
+  order       Order         @relation(fields: [orderId], references: [id])
+  orderId     String        @db.Uuid
+  employee    Employee      @relation(fields: [employeeId], references: [id])
+  employeeId  String        @db.Uuid
+  status      DeliveryStatus @default(ASSIGNED)
+  startedAt   DateTime?
+  completedAt DateTime?
+}
+
+model Payment {
+  id          String   @id @default(uuid()) @map("_id") @db.Uuid
+  order       Order    @relation(fields: [orderId], references: [id])
+  orderId     String   @unique @db.Uuid
+  amount      Float
+  method      String
+  status      String
+  transactionId String?
+  createdAt   DateTime @default(now())
+}
+
+model Referral {
+  id          String  @id @default(uuid()) @map("_id") @db.Uuid
+  referrer    User    @relation("Referrer", fields: [referrerId], references: [id])
+  referrerId  String  @db.Uuid
+  referred    User    @relation("Referred", fields: [referredId], references: [id])
+  referredId  String  @db.Uuid
+  reward      Float?
+  createdAt   DateTime @default(now())
+}
