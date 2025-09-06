@@ -110,7 +110,7 @@ export default function ManufacturerDetailsPage() {
               <CardContent>
                 <div className="grid md:grid-cols-2 gap-6">
                   {manufacturer.products.map((product) => (
-                    <div key={product.id} className="border rounded-lg p-4">
+                    <div key={product.id} className=" rounded-lg p-4">
                       <img 
                         src={product.image} 
                         alt={product.name}
