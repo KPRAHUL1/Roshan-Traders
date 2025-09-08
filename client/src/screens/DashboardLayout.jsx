@@ -42,7 +42,7 @@ export default function DashboardLayout() {
             theme={theme}
             onToggleTheme={onToggleTheme}
           />
-          <main className="p-4">
+          <main className="">
             <Outlet />
           </main>
         </div>
