@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { MapPin, ArrowRight, Star, Users, Package, TrendingUp, Award, Globe } from 'lucide-react'
+import { MapPin, ArrowRight, Star, Users, Package, TrendingUp, Award, Globe, ShoppingCart } from 'lucide-react'
 
 const ManufacturerCard = ({ manufacturer, viewMode = 'grid' }) => {
   if (viewMode === 'list') {
@@ -50,7 +50,7 @@ const ManufacturerCard = ({ manufacturer, viewMode = 'grid' }) => {
                 </div>
 
                 {/* Stats */}
-                <div className="grid grid-cols-4 gap-4 mb-6">
+                <div className="grid grid-cols-5 gap-3 mb-6">
                   <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-3 text-center">
                     <Package className="w-5 h-5 text-blue-600 mx-auto mb-1" />
                     <div className="text-lg font-bold text-blue-600">{manufacturer.productsCount}</div>
@@ -70,6 +70,11 @@ const ManufacturerCard = ({ manufacturer, viewMode = 'grid' }) => {
                     <Globe className="w-5 h-5 text-amber-600 mx-auto mb-1" />
                     <div className="text-lg font-bold text-amber-600">{manufacturer.exportCountries}+</div>
                     <div className="text-xs text-amber-700 font-medium">Countries</div>
+                  </div>
+                  <div className="bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-xl p-3 text-center">
+                    <ShoppingCart className="w-5 h-5 text-indigo-600 mx-auto mb-1" />
+                    <div className="text-lg font-bold text-indigo-600">{manufacturer.ordersCount || 0}</div>
+                    <div className="text-xs text-indigo-700 font-medium">Orders</div>
                   </div>
                 </div>
 
@@ -140,7 +145,7 @@ const ManufacturerCard = ({ manufacturer, viewMode = 'grid' }) => {
           </div>
 
           {/* Stats Grid */}
-          <div className="grid grid-cols-2 gap-3 mb-6">
+          <div className="grid grid-cols-3 gap-3 mb-6">
             <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-3 text-center">
               <Package className="w-4 h-4 text-blue-600 mx-auto mb-1" />
               <div className="text-lg font-bold text-blue-600">{manufacturer.productsCount}</div>
@@ -150,6 +155,11 @@ const ManufacturerCard = ({ manufacturer, viewMode = 'grid' }) => {
               <Users className="w-4 h-4 text-emerald-600 mx-auto mb-1" />
               <div className="text-lg font-bold text-emerald-600">{manufacturer.employees}</div>
               <div className="text-xs text-emerald-700 font-medium">Employees</div>
+            </div>
+            <div className="bg-gradient-to-br from-indigo-50 to-indigo-100 rounded-xl p-3 text-center">
+              <ShoppingCart className="w-4 h-4 text-indigo-600 mx-auto mb-1" />
+              <div className="text-lg font-bold text-indigo-600">{manufacturer.ordersCount || 0}</div>
+              <div className="text-xs text-indigo-700 font-medium">Orders</div>
             </div>
           </div>
 

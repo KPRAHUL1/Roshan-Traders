@@ -24,6 +24,13 @@ import {
   Shield,
   Clock,
   Target,
+  ShoppingCart,
+  User,
+  MapPin as LocationIcon,
+  DollarSign,
+  CheckCircle2,
+  Clock3,
+  AlertCircle,
 } from 'lucide-react';
 import { Card, CardHeader, CardContent } from '../../../components/ui/Card';
 import Badge from '../../../components/ui/Badge';
@@ -196,7 +203,7 @@ export default function ManufacturerDetailsPage() {
 
       {/* Stats Section */}
       <div className="max-w-7xl mx-auto px-6 py-12">
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-6 mb-12">
           <StatCard
             icon={<Package className="w-6 h-6 text-blue-600" />}
             label="Products"
@@ -224,6 +231,13 @@ export default function ManufacturerDetailsPage() {
             value={`${manufacturer.exportCountries}+`}
             color="text-amber-600"
             gradient="from-amber-50 to-amber-100"
+          />
+          <StatCard
+            icon={<ShoppingCart className="w-6 h-6 text-indigo-600" />}
+            label="Total Orders"
+            value={manufacturer.orders ? manufacturer.orders.length : 0}
+            color="text-indigo-600"
+            gradient="from-indigo-50 to-indigo-100"
           />
         </div>
 
@@ -351,6 +365,13 @@ export default function ManufacturerDetailsPage() {
                   >
                     <FileText className="w-5 h-5 mr-2" />
                     Certifications
+                  </TabButton>
+                  <TabButton
+                    active={activeTab === 'orders'}
+                    onClick={() => setActiveTab('orders')}
+                  >
+                    <ShoppingCart className="w-5 h-5 mr-2" />
+                    Orders ({manufacturer.orders ? manufacturer.orders.length : 0})
                   </TabButton>
                 </nav>
               </div>
@@ -483,6 +504,153 @@ export default function ManufacturerDetailsPage() {
                         All our products undergo rigorous quality testing and meet international standards. 
                         We maintain strict quality control processes to ensure customer satisfaction and product reliability.
                       </p>
+                    </div>
+                  </div>
+                )}
+
+                {activeTab === 'orders' && (
+                  <div className="space-y-6">
+                    <div className="text-center mb-8">
+                      <h3 className="text-2xl font-bold text-gray-800 mb-2">Order Management</h3>
+                      <p className="text-gray-600">Track and manage all customer orders and their details</p>
+                    </div>
+                    
+                    {/* Order Statistics */}
+                    <div className="grid md:grid-cols-4 gap-4 mb-8">
+                      <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4 text-center">
+                        <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center mx-auto mb-2">
+                          <ShoppingCart className="w-4 h-4 text-white" />
+                        </div>
+                        <h4 className="font-bold text-blue-800 text-lg">{manufacturer.orders ? manufacturer.orders.length : 0}</h4>
+                        <p className="text-blue-600 text-sm">Total Orders</p>
+                      </div>
+                      <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-4 text-center">
+                        <div className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center mx-auto mb-2">
+                          <CheckCircle2 className="w-4 h-4 text-white" />
+                        </div>
+                        <h4 className="font-bold text-green-800 text-lg">
+                          {manufacturer.orders ? manufacturer.orders.filter(order => order.status === 'completed').length : 0}
+                        </h4>
+                        <p className="text-green-600 text-sm">Completed</p>
+                      </div>
+                      <div className="bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-xl p-4 text-center">
+                        <div className="w-8 h-8 bg-yellow-500 rounded-lg flex items-center justify-center mx-auto mb-2">
+                          <Clock3 className="w-4 h-4 text-white" />
+                        </div>
+                        <h4 className="font-bold text-yellow-800 text-lg">
+                          {manufacturer.orders ? manufacturer.orders.filter(order => order.status === 'in_progress').length : 0}
+                        </h4>
+                        <p className="text-yellow-600 text-sm">In Progress</p>
+                      </div>
+                      <div className="bg-gradient-to-br from-red-50 to-red-100 rounded-xl p-4 text-center">
+                        <div className="w-8 h-8 bg-red-500 rounded-lg flex items-center justify-center mx-auto mb-2">
+                          <AlertCircle className="w-4 h-4 text-white" />
+                        </div>
+                        <h4 className="font-bold text-red-800 text-lg">
+                          {manufacturer.orders ? manufacturer.orders.filter(order => order.status === 'pending').length : 0}
+                        </h4>
+                        <p className="text-red-600 text-sm">Pending</p>
+                      </div>
+                    </div>
+
+                    {/* Orders List */}
+                    <div className="space-y-4">
+                      {manufacturer.orders && manufacturer.orders.length > 0 ? (
+                        manufacturer.orders.map((order) => (
+                          <div
+                            key={order.id}
+                            className="bg-white/80 backdrop-blur-sm rounded-2xl border border-gray-200/50 overflow-hidden hover:shadow-xl transition-all duration-300"
+                          >
+                            {/* Order Header */}
+                            <div className="bg-gradient-to-r from-gray-50 to-gray-100 p-6 border-b border-gray-200/50">
+                              <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+                                <div className="flex items-center gap-4">
+                                  <div className="w-12 h-12 bg-blue-500 rounded-xl flex items-center justify-center">
+                                    <ShoppingCart className="w-6 h-6 text-white" />
+                                  </div>
+                                  <div>
+                                    <h4 className="font-bold text-gray-800 text-lg">{order.id}</h4>
+                                    <p className="text-gray-600 text-sm">{order.orderDate}</p>
+                                  </div>
+                                </div>
+                                <div className="flex items-center gap-4">
+                                  <div className="text-right">
+                                    <p className="font-bold text-gray-800 text-lg">₹{order.totalAmount.toLocaleString()}</p>
+                                    <p className="text-gray-600 text-sm">Total Amount</p>
+                                  </div>
+                                  <div className={`px-4 py-2 rounded-full text-sm font-medium ${
+                                    order.status === 'completed' 
+                                      ? 'bg-green-100 text-green-800' 
+                                      : order.status === 'in_progress'
+                                      ? 'bg-yellow-100 text-yellow-800'
+                                      : 'bg-red-100 text-red-800'
+                                  }`}>
+                                    {order.status === 'completed' ? 'Completed' : 
+                                     order.status === 'in_progress' ? 'In Progress' : 'Pending'}
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            {/* Order Details */}
+                            <div className="p-6">
+                              <div className="grid lg:grid-cols-2 gap-6">
+                                {/* Customer Info */}
+                                <div className="space-y-4">
+                                  <h5 className="font-semibold text-gray-800 flex items-center">
+                                    <User className="w-5 h-5 mr-2 text-blue-500" />
+                                    Customer Information
+                                  </h5>
+                                  <div className="bg-gray-50 rounded-xl p-4">
+                                    <p className="font-medium text-gray-800">{order.customerName}</p>
+                                    <p className="text-gray-600 text-sm">{order.customerEmail}</p>
+                                    <div className="flex items-start mt-2">
+                                      <LocationIcon className="w-4 h-4 text-gray-400 mr-2 mt-1" />
+                                      <p className="text-gray-600 text-sm">{order.deliveryAddress}</p>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                {/* Order Items */}
+                                <div className="space-y-4">
+                                  <h5 className="font-semibold text-gray-800 flex items-center">
+                                    <Package className="w-5 h-5 mr-2 text-green-500" />
+                                    Order Items
+                                  </h5>
+                                  <div className="space-y-3">
+                                    {order.items.map((item, index) => (
+                                      <div key={index} className="bg-gray-50 rounded-xl p-4">
+                                        <div className="flex justify-between items-start mb-2">
+                                          <h6 className="font-medium text-gray-800">{item.productName}</h6>
+                                          <span className="font-bold text-green-600">₹{item.totalPrice.toLocaleString()}</span>
+                                        </div>
+                                        <div className="flex justify-between text-sm text-gray-600">
+                                          <span>Quantity: {item.quantity.toLocaleString()}</span>
+                                          <span>Unit Price: ₹{item.unitPrice}</span>
+                                        </div>
+                                      </div>
+                                    ))}
+                                  </div>
+                                </div>
+                              </div>
+
+                              {/* Order Notes */}
+                              {order.notes && (
+                                <div className="mt-4 bg-blue-50 rounded-xl p-4">
+                                  <h6 className="font-medium text-blue-800 mb-1">Special Notes</h6>
+                                  <p className="text-blue-700 text-sm">{order.notes}</p>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        ))
+                      ) : (
+                        <div className="text-center py-12">
+                          <ShoppingCart className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+                          <h3 className="text-xl font-semibold text-gray-700 mb-2">No Orders Found</h3>
+                          <p className="text-gray-500">This manufacturer doesn't have any orders yet.</p>
+                        </div>
+                      )}
                     </div>
                   </div>
                 )}

@@ -58,6 +58,79 @@ export const manufacturersData = [
       'Best Exporter Award 2023',
       'Quality Excellence Award 2022',
       'Innovation in Design Award 2021'
+    ],
+    orders: [
+      {
+        id: 'ORD-001',
+        customerName: 'ABC Construction Ltd.',
+        customerEmail: 'orders@abcconstruction.com',
+        orderDate: '2024-01-15',
+        status: 'completed',
+        totalAmount: 1250000,
+        items: [
+          {
+            productId: 'p1',
+            productName: 'Ceramic Floor Tiles',
+            quantity: 5000,
+            unitPrice: 35,
+            totalPrice: 175000
+          },
+          {
+            productId: 'p2',
+            productName: 'Vitrified Tiles',
+            quantity: 3000,
+            unitPrice: 50,
+            totalPrice: 150000
+          }
+        ],
+        deliveryAddress: 'Plot 123, Industrial Area, Mumbai - 400001',
+        notes: 'Urgent delivery required'
+      },
+      {
+        id: 'ORD-002',
+        customerName: 'XYZ Builders',
+        customerEmail: 'procurement@xyzbuilders.com',
+        orderDate: '2024-01-20',
+        status: 'in_progress',
+        totalAmount: 850000,
+        items: [
+          {
+            productId: 'p3',
+            productName: 'Wall Tiles',
+            quantity: 8000,
+            unitPrice: 25,
+            totalPrice: 200000
+          },
+          {
+            productId: 'p1',
+            productName: 'Ceramic Floor Tiles',
+            quantity: 2000,
+            unitPrice: 35,
+            totalPrice: 70000
+          }
+        ],
+        deliveryAddress: 'Sector 15, Gurgaon - 122001',
+        notes: 'Quality check required before dispatch'
+      },
+      {
+        id: 'ORD-003',
+        customerName: 'PQR Developers',
+        customerEmail: 'orders@pqrdevelopers.com',
+        orderDate: '2024-01-25',
+        status: 'pending',
+        totalAmount: 450000,
+        items: [
+          {
+            productId: 'p2',
+            productName: 'Vitrified Tiles',
+            quantity: 1500,
+            unitPrice: 50,
+            totalPrice: 75000
+          }
+        ],
+        deliveryAddress: 'Tech Park, Bangalore - 560001',
+        notes: 'Awaiting payment confirmation'
+      }
     ]
   },
   {
@@ -119,6 +192,60 @@ export const manufacturersData = [
       'Quality Supplier Award 2023',
       'Best Manufacturing Unit 2022',
       'Export Excellence Award 2021'
+    ],
+    orders: [
+      {
+        id: 'ORD-004',
+        customerName: 'Metro Construction Co.',
+        customerEmail: 'orders@metroconstruction.com',
+        orderDate: '2024-01-10',
+        status: 'completed',
+        totalAmount: 2100000,
+        items: [
+          {
+            productId: 'p4',
+            productName: 'Galvanized Steel Sheets',
+            quantity: 15000,
+            unitPrice: 55,
+            totalPrice: 825000
+          },
+          {
+            productId: 'p5',
+            productName: 'Color Coated Sheets',
+            quantity: 10000,
+            unitPrice: 65,
+            totalPrice: 650000
+          }
+        ],
+        deliveryAddress: 'Industrial Zone, Delhi - 110001',
+        notes: 'Bulk order - priority delivery'
+      },
+      {
+        id: 'ORD-005',
+        customerName: 'Steel Works India',
+        customerEmail: 'procurement@steelworks.com',
+        orderDate: '2024-01-18',
+        status: 'in_progress',
+        totalAmount: 1200000,
+        items: [
+          {
+            productId: 'p6',
+            productName: 'Roofing Sheets',
+            quantity: 8000,
+            unitPrice: 60,
+            totalPrice: 480000
+          },
+          {
+            productId: 'p4',
+            productName: 'Galvanized Steel Sheets',
+            quantity: 5000,
+            unitPrice: 55,
+            totalPrice: 275000
+          }
+        ],
+        deliveryAddress: 'Factory Area, Chennai - 600001',
+        notes: 'Custom cutting required'
+      }
     ]
   },
   {
@@ -180,6 +307,86 @@ export const manufacturersData = [
       'Green Building Material Award 2023',
       'Quality Certification 2022',
       'Regional Supplier Award 2021'
+    ],
+    orders: [
+      {
+        id: 'ORD-006',
+        customerName: 'Eco Builders Ltd.',
+        customerEmail: 'orders@ecobuilders.com',
+        orderDate: '2024-01-12',
+        status: 'completed',
+        totalAmount: 350000,
+        items: [
+          {
+            productId: 'p7',
+            productName: 'Clay Bricks',
+            quantity: 50000,
+            unitPrice: 6,
+            totalPrice: 300000
+          },
+          {
+            productId: 'p8',
+            productName: 'Fly Ash Bricks',
+            quantity: 10000,
+            unitPrice: 5,
+            totalPrice: 50000
+          }
+        ],
+        deliveryAddress: 'Green Valley, Pune - 411001',
+        notes: 'Eco-friendly construction project'
+      },
+      {
+        id: 'ORD-007',
+        customerName: 'Urban Developers',
+        customerEmail: 'procurement@urbandevelopers.com',
+        orderDate: '2024-01-22',
+        status: 'in_progress',
+        totalAmount: 180000,
+        items: [
+          {
+            productId: 'p9',
+            productName: 'Concrete Blocks',
+            quantity: 4000,
+            unitPrice: 35,
+            totalPrice: 140000
+          },
+          {
+            productId: 'p7',
+            productName: 'Clay Bricks',
+            quantity: 10000,
+            unitPrice: 6,
+            totalPrice: 60000
+          }
+        ],
+        deliveryAddress: 'Commercial Complex, Mumbai - 400001',
+        notes: 'High-rise building project'
+      },
+      {
+        id: 'ORD-008',
+        customerName: 'Rural Housing Corp.',
+        customerEmail: 'orders@ruralhousing.com',
+        orderDate: '2024-01-28',
+        status: 'pending',
+        totalAmount: 120000,
+        items: [
+          {
+            productId: 'p8',
+            productName: 'Fly Ash Bricks',
+            quantity: 20000,
+            unitPrice: 5,
+            totalPrice: 100000
+          },
+          {
+            productId: 'p9',
+            productName: 'Concrete Blocks',
+            quantity: 500,
+            unitPrice: 35,
+            totalPrice: 17500
+          }
+        ],
+        deliveryAddress: 'Village Development, Satara - 415001',
+        notes: 'Government housing scheme'
+      }
     ]
   }
 ]
@@ -189,11 +396,12 @@ export const getManufacturerById = (id) => {
 }
 
 export const getAllManufacturers = () => {
-  return manufacturersData.map(({ id, name, location, products, image, companyInfo }) => ({
+  return manufacturersData.map(({ id, name, location, products, image, companyInfo, orders }) => ({
     id,
     name,
     location,
     productsCount: products.length,
+    ordersCount: orders ? orders.length : 0,
     image,
     turnover: companyInfo.annualTurnover,
     employees: companyInfo.employees
