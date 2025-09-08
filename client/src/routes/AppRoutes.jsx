@@ -7,6 +7,7 @@ import CompaniesPage from '../screens/CompaniesPage'
 import TradersPage from '../screens/TradersPage'
 import AgentsPage from '../screens/AgentsPage'
 import EmployeesPage from '../screens/EmployeesPage'
+import UsersPage from '../screens/UsersPage'
 import { isAuthenticated } from '../lib/auth'
 
 function ProtectedRoute({ children }) {
@@ -35,6 +36,7 @@ export default function AppRoutes() {
         <Route path="traders" element={<TradersPage />} />
         <Route path="agents" element={<AgentsPage />} />
         <Route path="employees" element={<EmployeesPage />} />
+        <Route path="users" element={<UsersPage />} />
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

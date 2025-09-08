@@ -126,6 +126,20 @@ export default function Sidebar({ isCollapsed, onClose }) {
             </div>
           )}
         </NavLink>
+
+        <NavLink to="/users" className={active}>
+          <Users className="size-5 flex-shrink-0" />
+          {!isCollapsed && (
+            <span className="group-hover:translate-x-0.5 transition-transform">
+              Users
+            </span>
+          )}
+          {!isCollapsed && (
+            <div className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity">
+              <div className="w-1.5 h-1.5 bg-current rounded-full"></div>
+            </div>
+          )}
+        </NavLink>
       </nav>
 
       {/* Logout Section */}
