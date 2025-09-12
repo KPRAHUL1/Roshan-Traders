@@ -1,12 +1,8 @@
-import { useState } from 'react'
 import { Navigate } from 'react-router-dom'
 import { isAuthenticated } from '../../lib/auth'
-import SuperAdminLogin from './components/SuperAdminLogin'
 import UserLogin from './components/UserLogin'
 
 export default function LoginPage() {
-  const [loginType, setLoginType] = useState('user') // 'superadmin' or 'user'
-
   if (isAuthenticated()) {
     return <Navigate to="/" replace />
   }
@@ -42,40 +38,7 @@ export default function LoginPage() {
 
           {/* Right Side - Login Forms */}
           <div className="p-6 sm:p-8">
-            {/* Login Type Selector */}
-            <div className="mb-6">
-              <div className="flex bg-gray-100 rounded-lg p-1 mb-4">
-                <button
-                  type="button"
-                  onClick={() => setLoginType('user')}
-                  className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-colors ${
-                    loginType === 'user'
-                      ? 'bg-white text-gray-900 shadow-sm'
-                      : 'text-gray-600 hover:text-gray-900'
-                  }`}
-                >
-                  Agents, Manufacturers & Contractors
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setLoginType('superadmin')}
-                  className={`flex-1 py-2 px-4 rounded-md text-sm font-medium transition-colors ${
-                    loginType === 'superadmin'
-                      ? 'bg-white text-gray-900 shadow-sm'
-                      : 'text-gray-600 hover:text-gray-900'
-                  }`}
-                >
-                  Super Admin
-                </button>
-              </div>
-            </div>
-
-            {/* Render appropriate login form */}
-            {loginType === 'superadmin' ? (
-              <SuperAdminLogin />
-            ) : (
-              <UserLogin />
-            )}
+            <UserLogin />
           </div>
         </div>
       </div>

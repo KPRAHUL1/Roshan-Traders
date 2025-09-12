@@ -1,5 +1,8 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
 import LoginPage from '../pages/Login/LoginPage'
+import RoleSelect from '../pages/Auth/RoleSelect'
+import Register from '../pages/Auth/Register'
+import AdminLogin from '../pages/Admin/AdminLogin'
 import DashboardLayout from '../screens/DashboardLayout'
 import ManufacturersPage from '../pages/Manufactures/ManufacturesPage'
 import ManufacturerDetailsPage from '../pages/Manufactures/components/ManufacturesDetailsPage'
@@ -20,7 +23,10 @@ function ProtectedRoute({ children }) {
 export default function AppRoutes() {
   return (
     <Routes>
-      <Route path="/login" element={<LoginPage />} />
+      <Route path="/login" element={<RoleSelect />} />
+      <Route path="/login/:role" element={<LoginPage />} />
+      <Route path="/register/:role" element={<Register />} />
+      <Route path="/admin/login" element={<AdminLogin />} />
       <Route
         path="/"
         element={
