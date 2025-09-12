@@ -1,15 +1,20 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useState, useMemo } from 'react'
+import { useNavigate, useParams, Link } from 'react-router-dom'
 import { loginUser } from '../../../lib/auth'
 import Button from '../../../components/ui/Button'
 
 export default function UserLogin() {
   const navigate = useNavigate()
+  const { role } = useParams()
   const [phone, setPhone] = useState('')
   const [otp, setOtp] = useState('')
-  const [userType, setUserType] = useState('agent') // 'agent', 'manufacturer', 'contractor'
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+
+  const userType = useMemo(() => {
+    if (role === 'manufacturer' || role === 'contractor' || role === 'agent' || role === 'trader') return role
+    return 'agent'
+  }, [role])
 
   function handleSubmit(e) {
     e.preventDefault()
@@ -33,35 +38,13 @@ export default function UserLogin() {
   return (
     <div>
       <div className="mb-6">
-        <h1 className="text-2xl font-semibold tracking-tight">User Login</h1>
+        <h1 className="text-2xl font-semibold tracking-tight capitalize">{userType} Login</h1>
         <p className="mt-1 text-sm text-gray-600">Sign in with your mobile number and OTP</p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
-        {/* User Type Selection */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">I am a</label>
-          <div className="grid grid-cols-3 gap-2">
-            {[
-              { value: 'agent', label: 'Agent' },
-              { value: 'manufacturer', label: 'Manufacturer' },
-              { value: 'contractor', label: 'Contractor' }
-            ].map((type) => (
-              <button
-                key={type.value}
-                type="button"
-                onClick={() => setUserType(type.value)}
-                className={`py-2 px-3 rounded-lg text-sm font-medium transition-colors ${
-                  userType === type.value
-                    ? 'bg-indigo-100 text-indigo-700 border border-indigo-200'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }`}
-              >
-                {type.label}
-              </button>
-            ))}
-          </div>
-        </div>
+        {/* Role hint + change link */}
+        <div className="text-sm text-gray-600">Logging in as <span className="font-medium">{userType}</span>. <Link to="/login" className="text-indigo-600 hover:underline">Change</Link></div>
 
         {/* Mobile Number */}
         <div>
